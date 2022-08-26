@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
+#include <conio.h>
+// #include <ctype.h>
 
 /**
  * @id: id cua trang thai
- * @st_val: flag trang thai cuoi -- 1 true -- o false
+ * @flag_end: flag trang thai cuoi -- 1 true -- o false
  * @link0: dia chi trang thai neu input la 0
  * @link1: dia chi trang thai neu input la 1
  */
 struct node
 {
-  int id_num;
-  int st_val;
+  int id;
+  int flag_end;
   struct node *link0;
   struct node *link1;
 };
@@ -20,50 +22,51 @@ struct node *start, *q, *ptr;
 int vst_arr[100], a[10];
 int main()
 {
-  int count, i, posi, j;
-  char n[10];
+  int count, i, posi, j, loop;
+  char n[100];
+  printf("\n\n");
+  printf("\t---------------------------------------------------------------------------------\n");
+  printf("\t|\tCHUONG TRINH MO PHONG HOAT DONG CUA OTOMAT HUU HAN DON DINH\t\t|\n");
+	printf("\t|\tHo va ten: NGUYEN KIM THANH TAN - 19T1021229\t\t\t\t|\n");
+  printf("\t|\tGiao vien huong dan: NGUYEN THI BICH LOC \t\t\t\t|\n");
+  printf("\t---------------------------------------------------------------------------------\n");
+  
 
-  printf("=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=\n");
-  printf("Hay nhap so luong cua tap trang thai Q\n");
+  printf("\n");
+  printf("\t\tHay nhap so luong cua tap trang thai Q\n\t\t");
   scanf("%d", &count);
 
   q = (struct node *)malloc(sizeof(struct node) * count); // Cap phat dong cho bo nho cho q
 
   for (i = 0; i < count; i++)
   {
-    (q + i)->id_num = i;
+    (q + i)->id = i;
 
-    printf("Trang thai q%d\n", i);
-    printf("Trang thai tiep theo neu dau vao la 0: ");
-    fflush(stdin);
+    printf("\t\tTrang thai q%d\n", i);
+    printf("\t\tTrang thai tiep theo neu dau vao la 0: \t\t");
     scanf("%d", &posi);
     (q + i)->link0 = (q + posi);
 
-    printf("Trang thai tiep theo neu dau vao la 1: ");
-    fflush(stdin);
+    printf("\t\tTrang thai tiep theo neu dau vao la 1: \t\t");
     scanf("%d", &posi);
     (q + i)->link1 = (q + posi);
 
-    printf("Trang thai nay co thuoc trang thai ket thuc?\n");
-    fflush(stdin);
-    scanf("%d", &(q + i)->st_val);
+    printf("\t\tTrang thai nay co thuoc trang thai ket thuc?\n\t\t");
+    scanf("%d", &(q + i)->flag_end);
   }
 
-  printf("Hay nhap ten trang thai dau:\n");
-  fflush(stdin);
+  printf("\t\tHay nhap ten trang thai dau:\n\t\t");
   scanf("%d", &posi); 
   start = q + posi;
-  printf("=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=\n");
+  printf("\t\t---------------------------------\n");
 
-  while (1)
-  {
+
 
     ptr = start;
-    printf("Hay nhap xau dau vao \n");
-    fflush(stdin);
+    printf("\t\tHay nhap xau dau vao \n\t\t");
     scanf("%s", n);
     posi = 0;
-    system("clear");
+    system("cls");
 
     while (n[posi] != '\0')
     {
@@ -71,28 +74,32 @@ int main()
       posi++;
     }
     i = 0;
-    int loop;
+    
 
     // Display result
+    printf("\t\t");
     for (loop = 0; loop < strlen(n); loop++)
     {
       printf("[%d]    ", a[loop]);
     }
     printf("\n");
+    printf("\t\t");
     for (loop = 0; loop < strlen(n); loop++)
     {
+    
       printf(" ^     ");
     }
     printf("\n");
+    printf("\t\t");
     for (loop = 0; loop < strlen(n); loop++)
     {
       printf(" |     ");
     }
     printf("\n");
-    // printf("Duong di cua otomat qua cac trang thai:");
+    printf("\t\t");
     do
     {
-      vst_arr[i] = ptr->id_num;
+      vst_arr[i] = ptr->id;
       if (a[i] == 0)
       {
         ptr = ptr->link0;
@@ -103,33 +110,32 @@ int main()
       }
       else
       {
-        system("clear");
-        printf("Chuoi dau vao sai!\n"); // Kiem tra chuoi dau vao gia tri khac 0 hoac 1 hay khong
+        system("cls");
+        printf("\t\t dau vao sai!\n"); // Kiem tra chuoi dau vao gia tri khac 0 hoac 1 hay khong
         return 0;
       }
       printf("[q%d]-->", vst_arr[i]);
       i++;
     } while (i < posi);
     //***********************************************
-    printf("[q%d]", ptr->id_num);
-    if (ptr->st_val == 1)
+    printf("[q%d]", ptr->id);
+    if (ptr->flag_end == 1)
       printf(" thuoc F");
     else
       printf(" khong thuoc F");
     printf("\n");
-    // printf("Trang thai cua otomat khi ket thuc: %d\n", ptr->id_num);
     printf("\n");
-    if (ptr->st_val == 1)
+    if (ptr->flag_end == 1)
     {
-      printf("DOAN NHAN xau %s\n", n);
+      printf("\t\tDOAN NHAN xau %s\n", n);
+      getch();  
       return 1;
     }
     else
     {
-      printf("KHONG doan nhan xau %s\n", n);
+      printf("\t\tKHONG doan nhan xau %s\n", n);
+      getch();  
       return 0;
     }
-  }
-  printf("=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=\n");
-  return 0;
+
 }
