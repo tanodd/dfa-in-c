@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
-#include <conio.h>
+// #include <conio.h>
 // #include <ctype.h>
 
 /**
@@ -45,10 +45,18 @@ int main()
     printf("\t\tTrang thai q%d\n", i);
     printf("\t\tTrang thai tiep theo neu dau vao la 0: \t\t");
     scanf("%d", &posi);
+    if(&posi>=&count){
+      printf("Trang thai nay khong nam trong tap trang thai dau vao\n");
+      return 0;
+    }
     (q + i)->link0 = (q + posi);
 
     printf("\t\tTrang thai tiep theo neu dau vao la 1: \t\t");
     scanf("%d", &posi);
+     if(&posi>=&count){
+      printf("Trang thai nay khong nam trong tap trang thai dau vao\n");
+      return 0;
+    }
     (q + i)->link1 = (q + posi);
 
     printf("\t\tTrang thai nay co thuoc trang thai ket thuc?\n\t\t");
@@ -57,6 +65,7 @@ int main()
 
   printf("\t\tHay nhap ten trang thai dau:\n\t\t");
   scanf("%d", &posi); 
+  
   start = q + posi;
   printf("\t\t---------------------------------\n");
 
@@ -128,13 +137,13 @@ int main()
     if (ptr->flag_end == 1)
     {
       printf("\t\tDOAN NHAN xau %s\n", n);
-      getch();  
+    //   getch();  
       return 1;
     }
     else
     {
       printf("\t\tKHONG doan nhan xau %s\n", n);
-      getch();  
+    //   getch();  
       return 0;
     }
 
